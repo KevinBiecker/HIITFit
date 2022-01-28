@@ -34,8 +34,12 @@ import SwiftUI
 
 struct ContentView: View {
   var body: some View {
-    Text("Hello, world!")
-      .padding()
+    TabView{
+        WelcomeView()      // was Text("Welcome")
+        ForEach(0 ..< 4) { number in
+            ExerciseView(index: number)
+        }
+    }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
   }
 }
 
