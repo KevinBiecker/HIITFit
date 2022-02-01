@@ -31,57 +31,26 @@
 /// THE SOFTWARE.
 
 import SwiftUI
-import AVKit
 
-struct ExerciseView: View {
-    @State private var historyAlert = false
-    let videoNames = ["squat", "step-up", "burpee", "sun-salute"]
-    let exerciseNames = ["Squat", "Step Up", "Burpee", "Sun Salute"]
-    let index: Int
-    let interval: TimeInterval = 30
+struct RatingView: View {
     var body: some View {
-        GeometryReader { geometry in
-            VStack{
-                HeaderView(exerciseName: exerciseNames[index])
-                    .padding(.bottom)
-                if let url = Bundle.main.url(
-                    forResource: videoNames[index],
-                    withExtension: "mp4") {
-                    VideoPlayer(player: AVPlayer(url: url))
-                        .frame(height: geometry.size.height * 0.45)
-                } else {
-                    Text("Couldn't find \(videoNames[index]).mp4")
-                        .foregroundColor(.red)
-                }
-                Text(Date().addingTimeInterval(interval), style: .timer)
-                    .font(.system(size: 90))
-                    .foregroundColor(Color.white)
-                    .background(Color.black)
-                    .cornerRadius(15)
-                Button("Start/Done") { }
-                    .font(.title3)
-                    .padding()
-                RatingView()
-                    .padding()
-                
-                Spacer()
-                Button("History") {
-                    historyAlert = true
-                }
-                    .padding(.bottom)
-                    .alert("There is no history to show", isPresented: $historyAlert){
-                        Button("OK"){}
-                    }
+        HStack {
+            ForEach(0 ..< 5) { _ in
+                Image(systemName: "waveform.path.ecg")
+                    .foregroundColor(.gray)
+                    .font(.largeTitle)
+                    .background(Color.init(UIColor(red: 1.0, green: 0.349, blue: 0.349, alpha: 1)))
+                    .clipShape(Circle())
             }
         }
     }
-    
 }
 
-struct ExerciseView_Previews: PreviewProvider {
+
+
+struct RatingView_Previews: PreviewProvider {
     static var previews: some View {
-        ExerciseView(index: 0)
+        RatingView()
+            .previewLayout(.sizeThatFits)
     }
 }
-
-
